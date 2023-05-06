@@ -1,0 +1,23 @@
+import pandas as pd  
+import matplotlib.pyplot as plt   
+
+
+k = pd.read_csv(r'C:\Users\Alina\Documents\new 7.txt', sep='\t', engine='python', names=['A', 'B'])    
+
+k['A'] = k['A'].str.replace('.', '', regex=True)
+k['B'] = k['B'].str.replace('.', '', regex=True)
+k['A'] = k['A'].str.replace(',', '.', regex=True)
+k['B'] = k['B'].str.replace(',', '.', regex=True)
+
+k.to_csv('put_file.csv' )  
+uf = pd.read_csv('put_file.csv', dtype={"A": float})
+uf = pd.read_csv('put_file.csv', dtype={"B": float})  
+print (uf)
+mean_B = sum(uf['B']) / len(uf['B'])  
+lower_than_mean = uf[uf['B'] < mean_B]
+plt.scatter(lower_than_mean['A'], lower_than_mean['B'])
+plt.xlabel('A')
+plt.ylabel('B')
+plt.title('Scatter Plot of A vs B (B < Mean B)')
+plt.axhline(y=mean_B, color='r', linestyle='-')
+plt.show()
