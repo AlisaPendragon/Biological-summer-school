@@ -1,0 +1,23 @@
+>> inFile = fopen('C:\Users\Alina\Documents\new 7.txt', 'rb');
+>> outFile = fopen('C:\Users\Alina\Documents\new_7.txt', 'wb');
+>> while ~feof(inFile)
+    data = fread(inFile, 1000, 'char');
+    data(data == ',') = '.';
+    fwrite(outFile, data, 'char');
+end
+>> fclose(inFile);
+>> fclose(outFile);
+>> data = readtable('C:\Users\Alina\Documents\new_7.txt');
+>> writetable(data, 'C:\Users\Alina\Documents\new_7.csv', 'Delimiter', ';');
+>> file = 'C:\Users\Alina\Documents\new_7.csv';
+>> T = readtable(file)
+>> B = T.Var2;
+>> mean_B = mean(B);
+>> lower_than_mean = T(B < mean_B, :);
+>> scatter(lower_than_mean.Var1, lower_than_mean.Var2);
+>> xlabel('A')
+>> ylabel('B')
+>> title('Wondrous code')
+>> hold on
+>> plot([min(lower_than_mean.Var1), max(lower_than_mean.Var1)], [mean_B, mean_B], 'r-', 'LineWidth', 2)
+>> hold off
